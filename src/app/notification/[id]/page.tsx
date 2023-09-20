@@ -2,6 +2,7 @@
 import { Post } from "@/model/post";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
+import { timedefine } from "@/util/date";
 
 type Props = {
   params: {
@@ -25,5 +26,20 @@ export default function page({ params: { id } }: Props) {
         }
       });
   }, []);
-  return <p>zzz</p>;
+  return (
+    <section className="w-[60%] mx-auto  p-4">
+      <div className="border-solid border-b-2 mb-4">
+        <h1 className="text-xl font-bold mb-4 ">
+          {post &&
+            (post.title.length > 100
+              ? post.title.substring(0, 100) + "..."
+              : post.title)}
+        </h1>
+        <p className="mb-4 text-xs text-gray-400 ">
+          {timedefine(post?.createdAt)}
+        </p>
+      </div>
+      <p>{post?.content}</p>
+    </section>
+  );
 }

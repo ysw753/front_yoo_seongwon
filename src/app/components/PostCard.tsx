@@ -1,4 +1,5 @@
 import { Post } from "@/model/post";
+import { timedefine } from "@/util/date";
 import Link from "next/link";
 import React from "react";
 
@@ -15,22 +16,4 @@ export default function PostCard({ post }: Props) {
       </Link>
     </section>
   );
-}
-
-function timedefine(time: string): string {
-  //현재시간
-
-  let today = new Date();
-  let currentSecond = today.getSeconds(); //초
-
-  let createdtime = new Date("2023-01-06 16:20:30");
-  let createdSecond = createdtime.getSeconds(); //초
-  let diff = currentSecond - createdSecond;
-
-  if (diff < 60) return "방금 전";
-  else if (diff < 120) return "1분 전";
-  else if (diff < 180) return "2분 전";
-  else if (diff < 3660) return "1시간 전";
-  else if (diff < 86400) return "23시간 전";
-  else return "2023.01.06";
 }

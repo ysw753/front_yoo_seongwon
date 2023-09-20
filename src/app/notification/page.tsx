@@ -19,7 +19,7 @@ export default function page() {
   }, []);
 
   return (
-    <section className="max-w-screen-xl overflow-auto mx-auto">
+    <section className="max-w-screen-xl w-[60%] overflow-auto mx-auto">
       <div className="flex justify-between p-4 mt-5 border-b border-gray-400">
         <h1 className="font-bold text-3xl">공지사항</h1>
         <input
