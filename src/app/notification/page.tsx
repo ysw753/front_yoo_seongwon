@@ -1,40 +1,23 @@
+"use client";
+import { Post } from "@/model/post";
 import PostCard from "../components/PostCard";
 
-const posts = [
-  {
-    id: "1",
-    title:
-      "one 오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.",
-    detail: "오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.",
-    createdAt: "2023.09.13",
-  },
-  {
-    id: "2",
-    title: "two",
-    detail: "오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.",
-    createdAt: "2023.09.13",
-  },
-  {
-    id: "3",
-    title: "three",
-    detail: "오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.",
-    createdAt: "2023.09.13",
-  },
-  {
-    id: "4",
-    title: "four",
-    detail: "오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.",
-    createdAt: "2023.09.13",
-  },
-  {
-    id: "5",
-    title: "five",
-    detail: "오랜만에 사용하는 레파지토리에 코딩을 하고 commit push를 했다.",
-    createdAt: "2023.09.13",
-  },
-];
+import { useEffect, useState } from "react";
 
 export default function page() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data || data === undefined) {
+          setPosts([]);
+        } else {
+          setPosts(data);
+        }
+      });
+  }, []);
+
   return (
     <section className="max-w-screen-xl overflow-auto mx-auto">
       <div className="flex justify-between p-4 mt-5 border-b border-gray-400">

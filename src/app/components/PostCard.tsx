@@ -1,15 +1,8 @@
+import { Post } from "@/model/post";
 import Link from "next/link";
 import React from "react";
 
-type Props = {
-  post: {
-    id: string;
-    title: string;
-    detail: string;
-    createdAt: string;
-  };
-};
-
+type Props = { post: Post };
 export default function PostCard({ post }: Props) {
   const { id, title, createdAt } = post;
   return (
