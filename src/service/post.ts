@@ -16,3 +16,19 @@ export async function getOnePost(id: string) {
   });
   return post;
 }
+
+export async function getKeywordPost(keyword: string) {
+  //console.log("id", id);
+  const post = await prisma.post.findMany({
+    where: {
+      OR: [
+        {
+          title: {
+            startsWith: keyword,
+          },
+        },
+      ],
+    },
+  });
+  return post;
+}
