@@ -16,10 +16,9 @@ export function timedefine(time: string | undefined): string {
   for (const value of times) {
     const betweenTime = Math.floor(diff / value.milliSeconds);
 
-    // 큰 단위는 0보다 작은 소수점 값이 나옴
     if (betweenTime > 0) {
       return `${betweenTime}${value.name} 전`;
     }
   }
-  return "";
+  return "방금전";
 }

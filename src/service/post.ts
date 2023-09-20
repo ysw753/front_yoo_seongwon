@@ -1,10 +1,19 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function getAllPosts() {
-  const posts = await prisma.post.findMany();
-  return posts;
+export async function getPosts(pageindex = 1, pagesize = 10) {
+  const skip = (pageindex - 1) * pagesize;
+  const totalPostsCount = await prisma.post.count();
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 10,
+    skip,
+  });
+
+  return { posts, totalPostsCount };
 }
 
 export async function getOnePost(id: string) {

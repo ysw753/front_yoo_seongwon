@@ -17,8 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} w-full`}>
-        <header className=" sticky top-0 bg-blue-950">
+      <body className={`${inter.className} w-full overflow-auto`}>
+        <header className="sticky top-0  z-10 bg-blue-950">
           <Navbar />
         </header>
         <main>{children}</main>

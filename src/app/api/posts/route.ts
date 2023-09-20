@@ -1,8 +1,12 @@
-import { getAllPosts } from "@/service/post";
-import { NextResponse } from "next/server";
+import { getPosts } from "@/service/post";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  return getAllPosts().then((data) => {
+export async function POST(req: NextRequest) {
+  const requestBody = await req.json(); // 바디 데이터에 접근
+  const { pageindex, pagesize } = requestBody;
+  console.log("aaaaaaaaaaaaaaaa", pageindex, pagesize);
+
+  return getPosts(pageindex, pagesize).then((data) => {
     return NextResponse.json(data);
   });
 }
