@@ -1,3 +1,4 @@
+import { SinglePost } from "@/model/post";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -40,4 +41,14 @@ export async function getKeywordPost(keyword: string) {
     },
   });
   return post;
+}
+
+export async function createPost(postData: SinglePost) {
+  console.log(postData);
+  await prisma.post.create({
+    data: {
+      title: postData.title,
+      content: postData.content,
+    },
+  });
 }

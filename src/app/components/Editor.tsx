@@ -2,9 +2,10 @@
 import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import "./write.css";
+//import extractTextFromHTML from "@/util/extractTextFromHtml";
 
 type InputData = {
   title?: string;
@@ -21,6 +22,38 @@ export default function Editor() {
     if (inputData.title === "") {
       alert("타이틀은 필수 입니다.");
     }
+
+    // const formData = new FormData();
+    // formData.append("title", inputData.title as string);
+    // formData.append("content", extractTextFromHTML(inputData.content as string));
+
+    // fetch("http://localhost:3000/api/write", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    const postobj = {
+      title: inputData.title as string,
+      //content: extractTextFromHTML(inputData.content as string),
+      content: inputData.content as string,
+    };
+    fetch("/api/write", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postobj),
+    }).then((res) => {
+      console.log(res);
+      router.push("/notification");
+    });
   };
   return (
     <section className="w-[60%] m-auto h-full p-4">

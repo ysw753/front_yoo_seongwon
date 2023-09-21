@@ -3,7 +3,7 @@ import { Post } from "@/model/post";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { timedefine } from "@/util/date";
-
+import extractTextFromHTML from "@/util/extractTextFromHtml";
 type Props = {
   params: {
     id: string;
@@ -22,7 +22,7 @@ export default function NotificationDetail({ params: { id } }: Props) {
           redirect("/notification");
         } else {
           console.log(data);
-          setPost(data);
+          setPost({ ...data, content: extractTextFromHTML(data.content) });
         }
       });
   }, []);

@@ -6,3 +6,8 @@ export type Post = {
   content: string;
   createdAt: string;
 };
+
+export type SinglePost = {
+  title: string;
+  content: string;
+};
