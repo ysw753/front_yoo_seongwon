@@ -10,7 +10,7 @@ type Props = {
   };
 };
 
-export default function page({ params: { id } }: Props) {
+export default function NotificationDetail({ params: { id } }: Props) {
   const [post, setPost] = useState<Post>();
   console.log(id);
   useEffect(() => {

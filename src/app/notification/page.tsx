@@ -7,10 +7,11 @@ import PostCard from "../components/PostCard";
 
 import { useEffect, useState } from "react";
 import useDebounce from "@/hooks/debounce";
+import Link from "next/link";
 
 const GROUP_SIZE = 5;
 
-export default function page() {
+export default function NotificationPage() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const [keyword, setKeyword] = useState("");
@@ -93,6 +94,7 @@ export default function page() {
     <section className="max-w-screen-xl w-[60%] overflow-auto mx-auto">
       <div className="relative flex justify-between p-4 mt-5 border-b border-gray-400">
         <h1 className="font-bold text-3xl">공지사항</h1>
+        <Link href={"/write"}>글쓰기</Link>
         <input
           className=" text-xl p-2 outline-none border border-gray-600 rounded-md"
           type="text"
@@ -100,6 +102,7 @@ export default function page() {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
+
         <button
           className="absolute right-0 top-1/2 -translate-x-1/2 -translate-y-1/2 p-2"
           onClick={getSearchHandler}
