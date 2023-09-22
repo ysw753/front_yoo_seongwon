@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   const requestBody = await req.json(); // 바디 데이터에 접근
   const { title, content, image } = requestBody;
 
-  if (!title || !content) {
+  if (!title) {
     return new Response("Bad Request", { status: 400 });
   }
 

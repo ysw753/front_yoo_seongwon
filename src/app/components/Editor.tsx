@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useRouter } from "next/navigation";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { SimpleUploadAdapter } from "@ckeditor/ckeditor5-upload";
 
 import "./write.css";
+import { Post } from "@/model/post";
 //import extractTextFromHTML from "@/util/extractTextFromHtml";
 
 type InputData = {
@@ -15,7 +16,28 @@ type InputData = {
   image?: string;
 };
 
-export default function Editor() {
+type Props = {
+  post?: Post | null;
+  state: string;
+};
+
+export default function Editor({ post, state }: Props) {
+  console.log(post);
+  const router = useRouter();
+
+  const [inputData, setInputData] = useState<InputData>({
+    title: post?.title || "",
+    content: post?.content || "",
+    image: post?.image || "",
+  });
+  // useEffect(() => {
+  //   setInputData({
+  //     title: post?.title || "",
+  //     content: post?.content || "",
+  //     image: post?.image || "",
+  //   });
+  // }, []);
+
   const url = process.env.NEXT_PUBLIC_CLOUDINARY_URL as string;
   const preset = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET as string;
   function uploadAdapter(loader: any) {
@@ -50,31 +72,11 @@ export default function Editor() {
       return uploadAdapter(loader);
     };
   }
-  const router = useRouter();
-  const [inputData, setInputData] = useState<InputData>({
-    title: "",
-    content: "",
-  });
+
   const saveHandler = () => {
     if (inputData.title === "") {
       alert("타이틀은 필수 입니다.");
     }
-    console.log(inputData);
-    // const formData = new FormData();
-    // formData.append("title", inputData.title as string);
-    // formData.append("content", extractTextFromHTML(inputData.content as string));
-
-    // fetch("http://localhost:3000/api/write", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
 
     const postobj = {
       title: inputData.title as string,
@@ -82,17 +84,32 @@ export default function Editor() {
       content: inputData.content as string,
       image: inputData.image,
     };
-    fetch("/api/write", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postobj),
-    }).then((res) => {
-      console.log(res);
-      router.push("/notification");
-    });
+
+    if (state === "update") {
+      fetch(`/api/update/${post.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postobj),
+      }).then((res) => {
+        console.log(res);
+        router.push("/notification");
+      });
+    } else if (state === "create") {
+      fetch("/api/write", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postobj),
+      }).then((res) => {
+        console.log(res);
+        router.push("/notification");
+      });
+    }
   };
+
   return (
     <section className="w-[60%] m-auto h-full p-4">
       <input
@@ -106,14 +123,15 @@ export default function Editor() {
       />
       <CKEditor
         editor={ClassicEditor}
-        data=""
+        //data=""
+        data={inputData.content}
         config={{ extraPlugins: [uploadPlugin] }}
         onReady={(editor) => {
-          // You can store the "editor" and use when it is needed.
           console.log("Editor is ready to use!", editor);
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
+          console.log(data);
           // 이미지 URL 추출
           const imageUrls: string[] = [];
           const parser = new DOMParser();

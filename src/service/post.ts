@@ -49,7 +49,7 @@ export async function createPost(postData: SinglePost) {
     data: {
       title: postData.title,
       content: postData.content,
-      image: postData.image,
+      image: postData.image ? postData.image : "",
     },
   });
 }
@@ -58,6 +58,19 @@ export async function deletePost(postId: string) {
   await prisma.post.delete({
     where: {
       id: postId,
+    },
+  });
+}
+
+export async function updatePost(postData: SinglePost, postId: string) {
+  await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      title: postData.title,
+      content: postData.content,
+      image: postData.image ? postData.image : "",
     },
   });
 }

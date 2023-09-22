@@ -26,6 +26,11 @@ export default function NotificationDetail({ params: { id } }: Props) {
       body: JSON.stringify({ postId: id }),
     }).then((res) => console.log(res));
   };
+
+  const updateHandler = () => {
+    router.push(`/write/${id}`);
+  };
+
   useEffect(() => {
     fetch(`http://localhost:3000/api/posts/${id}`)
       .then((res) => res.json())
@@ -35,7 +40,7 @@ export default function NotificationDetail({ params: { id } }: Props) {
           redirect("/notification");
         } else {
           console.log(data);
-          setPost({ ...data, content: extractTextFromHTML(data.content) });
+          setPost({ ...data, content: data.content });
         }
       });
   }, []);
@@ -64,7 +69,7 @@ export default function NotificationDetail({ params: { id } }: Props) {
             height={300}
           />
         )}
-        <p>{post?.content}</p>
+        {post && <p>{extractTextFromHTML(post?.content)}</p>}
       </div>
       <div>
         <button
@@ -73,7 +78,10 @@ export default function NotificationDetail({ params: { id } }: Props) {
         >
           목록으로
         </button>
-        <button className="bg-orange-500 text-white m-1 p-2 rounded-md">
+        <button
+          onClick={updateHandler}
+          className="bg-orange-500 text-white m-1 p-2 rounded-md"
+        >
           수정
         </button>
         <button

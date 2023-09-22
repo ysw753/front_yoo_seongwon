@@ -6,5 +6,5 @@ export default function WritePage() {
   const Editor = dynamic(() => import("@/app/components/Editor"), {
     ssr: false,
   });
-  return <Editor />;
+  return <Editor state="create" />;
 }
