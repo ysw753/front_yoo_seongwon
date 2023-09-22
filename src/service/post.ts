@@ -52,3 +52,11 @@ export async function createPost(postData: SinglePost) {
     },
   });
 }
+
+export async function deletePost(postId: string) {
+  await prisma.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+}

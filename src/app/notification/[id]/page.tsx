@@ -1,7 +1,7 @@
 "use client";
 import { Post } from "@/model/post";
 import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { timedefine } from "@/util/date";
 import extractTextFromHTML from "@/util/extractTextFromHtml";
 type Props = {
@@ -12,7 +12,19 @@ type Props = {
 
 export default function NotificationDetail({ params: { id } }: Props) {
   const [post, setPost] = useState<Post>();
+  const router = useRouter();
+
   console.log(id);
+
+  const deleteHandler = () => {
+    fetch("http://localhost:3000/api/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId: id }),
+    }).then((res) => console.log(res));
+  };
   useEffect(() => {
     fetch(`http://localhost:3000/api/posts/${id}`)
       .then((res) => res.json())
@@ -27,8 +39,8 @@ export default function NotificationDetail({ params: { id } }: Props) {
       });
   }, []);
   return (
-    <section className="w-[60%] mx-auto  p-4">
-      <div className="border-solid border-b-2 mb-4">
+    <section className="flex flex-col w-[60%] mx-auto  p-4">
+      <div className=" border-solid border-b-2 mb-4">
         <h1 className="text-xl font-bold mb-4 ">
           {post &&
             (post.title.length > 100
@@ -39,7 +51,27 @@ export default function NotificationDetail({ params: { id } }: Props) {
           {timedefine(post?.createdAt)}
         </p>
       </div>
-      <p>{post?.content}</p>
+
+      <div className="min-h-[600px] overflow-y-auto p-4 mb-1">
+        {post?.content}
+      </div>
+      <div>
+        <button
+          onClick={() => router.push("/notification")}
+          className="bg-white m-1 p-2 rounded-md border-gray-300 border"
+        >
+          목록으로
+        </button>
+        <button className="bg-orange-500 text-white m-1 p-2 rounded-md">
+          수정
+        </button>
+        <button
+          onClick={deleteHandler}
+          className="bg-red-500 text-white m-1 p-2 rounded-md"
+        >
+          삭제
+        </button>
+      </div>
     </section>
   );
 }
