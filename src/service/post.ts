@@ -49,6 +49,7 @@ export async function createPost(postData: SinglePost) {
     data: {
       title: postData.title,
       content: postData.content,
+      image: postData.image,
     },
   });
 }

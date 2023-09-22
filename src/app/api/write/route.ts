@@ -7,14 +7,14 @@ export async function POST(req: NextRequest) {
   // const title = form.get("title")?.toString();
   // const content = form.get("content")?.toString();
   const requestBody = await req.json(); // 바디 데이터에 접근
-  const { title, content } = requestBody;
+  const { title, content, image } = requestBody;
 
   if (!title || !content) {
     return new Response("Bad Request", { status: 400 });
   }
 
-  console.log("tttttttt", title, content);
-  return createPost({ title, content })
+  console.log("tttttttt", title, content, image);
+  return createPost({ title, content, image })
     .then((data) => {
       return NextResponse.json(data);
     })

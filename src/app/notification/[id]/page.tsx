@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import { timedefine } from "@/util/date";
 import extractTextFromHTML from "@/util/extractTextFromHtml";
+import Image from "next/image";
 type Props = {
   params: {
     id: string;
@@ -53,7 +54,17 @@ export default function NotificationDetail({ params: { id } }: Props) {
       </div>
 
       <div className="min-h-[600px] overflow-y-auto p-4 mb-1">
-        {post?.content}
+        {post?.image && (
+          <Image
+            className="object-cover"
+            src={post.image}
+            alt={`postimage`}
+            priority
+            width={200}
+            height={300}
+          />
+        )}
+        <p>{post?.content}</p>
       </div>
       <div>
         <button
