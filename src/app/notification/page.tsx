@@ -53,7 +53,7 @@ export default function NotificationPage() {
           setPageArray(makePageArray(data.totalPostsCount, 10));
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("error", err));
   };
 
   // 검색 필터링기능
