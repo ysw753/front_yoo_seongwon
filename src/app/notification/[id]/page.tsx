@@ -30,7 +30,9 @@ export default function NotificationDetail({ params: { id } }: Props) {
   };
 
   useEffect(() => {
-    fetch(`/api/posts/${id}`)
+    fetch(`/api/posts/${id}`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data) => {
         if (!data || data === undefined) {

@@ -22,7 +22,6 @@ type Props = {
 };
 
 export default function Editor({ post, state }: Props) {
-  console.log(post);
   const router = useRouter();
 
   const [inputData, setInputData] = useState<InputData>({
@@ -55,7 +54,6 @@ export default function Editor({ post, state }: Props) {
               })
                 .then((res) => res.json())
                 .then((res) => {
-                  console.log("asdasdsad", res.url);
                   resolve({ default: `${res.url}` });
                 });
             })
@@ -94,7 +92,6 @@ export default function Editor({ post, state }: Props) {
         },
         body: JSON.stringify(postobj),
       }).then((res) => {
-        console.log(res);
         router.push("/notification");
       });
     } else if (state === "create") {
@@ -105,7 +102,6 @@ export default function Editor({ post, state }: Props) {
         },
         body: JSON.stringify(postobj),
       }).then((res) => {
-        console.log(res);
         router.push("/notification");
       });
     }
@@ -127,12 +123,9 @@ export default function Editor({ post, state }: Props) {
         //data=""
         data={inputData.content}
         config={{ extraPlugins: [uploadPlugin] }}
-        onReady={(editor) => {
-          console.log("Editor is ready to use!", editor);
-        }}
+        onReady={(editor) => {}}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log(data);
           // 이미지 URL 추출
           const imageUrls: string[] = [];
           const parser = new DOMParser();
@@ -149,14 +142,9 @@ export default function Editor({ post, state }: Props) {
             content: data,
             image: imageUrls ? imageUrls[0] : "",
           }));
-          console.log({ event, editor, data });
         }}
-        onBlur={(event, editor) => {
-          console.log("Blur.", editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log("Focus.", editor);
-        }}
+        onBlur={(event, editor) => {}}
+        onFocus={(event, editor) => {}}
       />
       <button
         onClick={() => router.push("/notification")}
