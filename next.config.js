@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://next-board-git-main-ysw753.vercel.app/:path*",
+        destination: "http://localhost:3000/:path*",
       },
     ];
   },
