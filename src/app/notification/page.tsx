@@ -52,7 +52,8 @@ export default function NotificationPage() {
           setIsData(true);
           setPageArray(makePageArray(data.totalPostsCount, 10));
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   // 검색 필터링기능
