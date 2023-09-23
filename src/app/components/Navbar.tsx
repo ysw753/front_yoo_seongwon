@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
+
   return (
     <div className="flex justify-between items-center p-5">
       <div className="flex items-center gap-10 ">
-        <Link href="/notification">
+        <button onClick={() => router.replace("/notification")}>
           <h1 className="text-3xl font-bold text-white">BlockSmith</h1>
-        </Link>
+        </button>
         <Link href="/notification">
           <p className="text-white">홈</p>
         </Link>
