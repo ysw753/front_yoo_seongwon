@@ -40,14 +40,15 @@ export default function NotificationPage() {
 
   const nextGroupHandler = () => {
     if (groupIndex < Math.floor(pageArray.length / GROUP_SIZE)) {
-      setGroupIndex(Math.floor(pageIndex / GROUP_SIZE) + 1);
-      setPageIndex((prev) => Math.floor(prev / GROUP_SIZE) + 1 + GROUP_SIZE);
+      //setGroupIndex(Math.floor(pageIndex / GROUP_SIZE) + 1);
+      setGroupIndex((prev) => prev + 1);
+      setPageIndex((groupIndex + 1) * GROUP_SIZE + 1);
     }
   };
   const prevGroupHandler = () => {
     if (groupIndex > 0) {
       setGroupIndex((prev) => prev - 1);
-      setPageIndex(groupIndex);
+      setPageIndex((groupIndex - 1) * GROUP_SIZE + 1);
     }
   };
 
@@ -60,9 +61,8 @@ export default function NotificationPage() {
   const prevHandler = () => {
     if (pageIndex > 1) {
       setPageIndex((prev) => prev - 1);
-      setGroupIndex((prev) =>
-        prev > Math.floor((pageIndex - 2) / GROUP_SIZE) ? prev - 1 : prev
-      );
+
+      setGroupIndex(Math.floor((pageIndex - 2) / GROUP_SIZE));
       console.log(pageIndex - 1);
     }
   };
@@ -133,7 +133,11 @@ export default function NotificationPage() {
         {pageArray
           .slice(groupIndex * GROUP_SIZE, groupIndex * GROUP_SIZE + GROUP_SIZE)
           .map((item) => (
-            <button key={item} onClick={() => goPage(item)} className="m-4">
+            <button
+              key={item}
+              onClick={() => goPage(item)}
+              className={`m-4 ${pageIndex === item ? "bg-gray-200" : ""} `}
+            >
               {item}
             </button>
           ))}
