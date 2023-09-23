@@ -12,17 +12,15 @@ type Props = {
 
 export default function UpdatePage({ params: { id } }: Props) {
   const [post, setPost] = useState<Post>();
-  console.log(post);
   // params로 아이디를 받는다
   // 아이디로 게시물을 찾는다
   useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${id}`)
+    fetch(`/api/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data || data === undefined) {
           alert("게시물이 존재하지 않습니다.");
         } else {
-          console.log(data);
           setPost({ ...data, content: data.content });
         }
       });

@@ -15,10 +15,8 @@ export default function NotificationDetail({ params: { id } }: Props) {
   const [post, setPost] = useState<Post>();
   const router = useRouter();
 
-  console.log(id);
-
   const deleteHandler = () => {
-    fetch("http://localhost:3000/api/delete", {
+    fetch("/api/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,14 +30,13 @@ export default function NotificationDetail({ params: { id } }: Props) {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${id}`)
+    fetch(`/api/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data || data === undefined) {
           alert("게시물이 존재하지 않습니다.");
           redirect("/notification");
         } else {
-          console.log(data);
           setPost({ ...data, content: data.content });
         }
       });

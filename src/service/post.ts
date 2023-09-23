@@ -18,7 +18,6 @@ export async function getPosts(pageindex = 1, pagesize = 10) {
 }
 
 export async function getOnePost(id: string) {
-  //console.log("id", id);
   const post = await prisma.post.findUnique({
     where: {
       id: id,
@@ -28,7 +27,6 @@ export async function getOnePost(id: string) {
 }
 
 export async function getKeywordPost(keyword: string) {
-  //console.log("id", id);
   const post = await prisma.post.findMany({
     where: {
       OR: [
@@ -44,7 +42,6 @@ export async function getKeywordPost(keyword: string) {
 }
 
 export async function createPost(postData: SinglePost) {
-  console.log(postData);
   await prisma.post.create({
     data: {
       title: postData.title,

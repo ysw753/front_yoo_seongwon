@@ -34,7 +34,7 @@ export default function NotificationPage() {
       pageindex: pageIndex,
       pagesize: 10,
     };
-    fetch("http://localhost:3000/api/posts", {
+    fetch("/api/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,8 +58,7 @@ export default function NotificationPage() {
   // 검색 필터링기능
   const getSearchHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && keyword !== "") {
-      console.log("눌림");
-      fetch(`http://localhost:3000/api/postsearch/${debouncedKey}`)
+      fetch(`/api/postsearch/${debouncedKey}`)
         .then((res) => res.json())
         .then((data) => {
           setIsLoading(false);
@@ -121,7 +120,6 @@ export default function NotificationPage() {
       setPageIndex((prev) => prev - 1);
 
       setGroupIndex(Math.floor((pageIndex - 2) / GROUP_SIZE));
-      console.log(pageIndex - 1);
     }
   };
 
