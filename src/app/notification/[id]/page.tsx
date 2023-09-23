@@ -74,19 +74,19 @@ export default function NotificationDetail({ params: { id } }: Props) {
       <div>
         <button
           onClick={() => router.push("/notification")}
-          className="bg-white m-1 p-2 rounded-md border-gray-300 border"
+          className="bg-white hover:bg-gray-500 hover:text-white m-1 p-2 rounded-md border-gray-300 border"
         >
           목록으로
         </button>
         <button
           onClick={updateHandler}
-          className="bg-orange-500 text-white m-1 p-2 rounded-md"
+          className="hover:bg-orange-200 hover:text-orange-500 bg-orange-500 text-white m-1 p-2 rounded-md"
         >
           수정
         </button>
         <button
           onClick={deleteHandler}
-          className="bg-red-500 text-white m-1 p-2 rounded-md"
+          className="bg-red-500 hover:bg-red-200 hover:text-red-500 text-white m-1 p-2 rounded-md"
         >
           삭제
         </button>

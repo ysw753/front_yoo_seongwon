@@ -86,6 +86,7 @@ export default function Editor({ post, state }: Props) {
     };
 
     if (state === "update") {
+      if (!post) return;
       fetch(`/api/update/${post.id}`, {
         method: "POST",
         headers: {
@@ -159,13 +160,13 @@ export default function Editor({ post, state }: Props) {
       />
       <button
         onClick={() => router.push("/notification")}
-        className="border rounded-md p-2 border-gray-200 bg-white"
+        className="hover:bg-gray-500 hover:text-white border rounded-md p-2 border-gray-200 bg-white"
       >
         취소
       </button>
       <button
         onClick={saveHandler}
-        className=" rounded-md p-2 text-white m-3 bg-orange-500"
+        className="hover:bg-orange-200 hover:text-orange-500 rounded-md p-2 text-white m-3 bg-orange-500"
       >
         저장
       </button>

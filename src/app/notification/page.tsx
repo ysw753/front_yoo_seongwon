@@ -92,9 +92,9 @@ export default function NotificationPage() {
 
   return (
     <section className="max-w-screen-xl w-[60%] overflow-auto mx-auto">
-      <div className="relative flex justify-between p-4 mt-5 border-b border-gray-400">
+      <div className="relative min-w-[560px] flex justify-between p-4 mt-5 border-b border-gray-400">
         <h1 className="font-bold text-3xl">공지사항</h1>
-        <Link href={"/write"}>글쓰기</Link>
+
         <input
           className=" text-xl p-2 outline-none border border-gray-600 rounded-md"
           type="text"
@@ -110,31 +110,39 @@ export default function NotificationPage() {
           <RiSearchLine className="w-6 h-6 text-gray-400" />
         </button>
       </div>
-
-      <ul>
+      <div className="mb-[50px]">
+        <Link className=" float-right m-2 z-10" href={"/write"}>
+          <p className="hover:bg-[#EFF0F3] hover:text-black  bg-black text-white rounded-md p-1 mr-2">
+            글쓰기
+          </p>
+        </Link>
+      </div>
+      <ul className="min-h-screen">
         {posts.map((post) => (
-          <li key={post.id}>
+          <li className="hover:bg-[#EFF0F3]" key={post.id}>
             <PostCard post={post} />
           </li>
         ))}
       </ul>
-      <button
-        className="text-gray-400 m-3"
-        onClick={prevGroupHandler}
-      >{`<<`}</button>
-      <button className="text-gray-400" onClick={prevHandler}>{`<`}</button>
-      {pageArray
-        .slice(groupIndex * GROUP_SIZE, groupIndex * GROUP_SIZE + GROUP_SIZE)
-        .map((item) => (
-          <button key={item} onClick={() => goPage(item)} className="m-4">
-            {item}
-          </button>
-        ))}
-      <button className="text-gray-400" onClick={nextHandler}>{`>`}</button>
-      <button
-        className="text-gray-400 m-3"
-        onClick={nextGroupHandler}
-      >{`>>`}</button>
+      <div className="text-center">
+        <button
+          className="text-gray-400 m-3"
+          onClick={prevGroupHandler}
+        >{`<<`}</button>
+        <button className="text-gray-400" onClick={prevHandler}>{`<`}</button>
+        {pageArray
+          .slice(groupIndex * GROUP_SIZE, groupIndex * GROUP_SIZE + GROUP_SIZE)
+          .map((item) => (
+            <button key={item} onClick={() => goPage(item)} className="m-4">
+              {item}
+            </button>
+          ))}
+        <button className="text-gray-400" onClick={nextHandler}>{`>`}</button>
+        <button
+          className="text-gray-400 m-3"
+          onClick={nextGroupHandler}
+        >{`>>`}</button>
+      </div>
     </section>
   );
 }
