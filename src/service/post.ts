@@ -42,25 +42,27 @@ export async function getKeywordPost(keyword: string) {
 }
 
 export async function createPost(postData: SinglePost) {
-  await prisma.post.create({
+  const data = await prisma.post.create({
     data: {
       title: postData.title,
       content: postData.content,
       image: postData.image ? postData.image : "",
     },
   });
+  return data;
 }
 
 export async function deletePost(postId: string) {
-  await prisma.post.delete({
+  const data = await prisma.post.delete({
     where: {
       id: postId,
     },
   });
+  return data;
 }
 
 export async function updatePost(postData: SinglePost, postId: string) {
-  await prisma.post.update({
+  const data = await prisma.post.update({
     where: {
       id: postId,
     },
@@ -70,4 +72,5 @@ export async function updatePost(postData: SinglePost, postId: string) {
       image: postData.image ? postData.image : "",
     },
   });
+  return data;
 }

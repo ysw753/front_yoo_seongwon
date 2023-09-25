@@ -22,7 +22,10 @@ export default function NotificationDetail({ params: { id } }: Props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ postId: id }),
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      alert("삭제되었습니다.");
+      router.push("/notification");
+    });
   };
 
   const updateHandler = () => {

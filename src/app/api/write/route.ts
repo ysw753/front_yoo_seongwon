@@ -13,7 +13,6 @@ export async function POST(req: NextRequest) {
     return new Response("Bad Request", { status: 400 });
   }
 
-  console.log("tttttttt", title, content, image);
   return createPost({ title, content, image })
     .then((data) => {
       return NextResponse.json(data);
