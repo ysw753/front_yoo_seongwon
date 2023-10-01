@@ -6,7 +6,6 @@ type Context = {
 };
 
 export async function GET(_: NextRequest, context: Context) {
-  "asdasd", context.params.id;
   return getOnePost(context.params.id).then((data) => {
     return NextResponse.json(data);
   });

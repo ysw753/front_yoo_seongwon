@@ -46,6 +46,7 @@ export default function NotificationDetail({ params: { id } }: Props) {
         }
       });
   }, []);
+  const extractedText = post && extractTextFromHTML(post?.content);
   return (
     <section className="flex flex-col w-[60%] mx-auto  p-4">
       <div className=" border-solid border-b-2 mb-4">
@@ -61,7 +62,7 @@ export default function NotificationDetail({ params: { id } }: Props) {
       </div>
 
       <div className="min-h-[600px] overflow-y-auto p-4 mb-1">
-        {post?.image && (
+        {/* {post?.image && (
           <Image
             className="object-cover"
             src={post.image}
@@ -70,8 +71,12 @@ export default function NotificationDetail({ params: { id } }: Props) {
             width={200}
             height={300}
           />
-        )}
-        {post && <p>{extractTextFromHTML(post?.content)}</p>}
+        )} */}
+        <div>
+          {post && <div dangerouslySetInnerHTML={{ __html: post?.content }} />}
+          {/* Display HTML content */}
+        </div>
+        {/* {post && extractTextFromHTML(post?.content)} */}
       </div>
       <div>
         <button
