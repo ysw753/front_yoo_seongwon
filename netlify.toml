@@ -4,3 +4,6 @@ publish = ".next"		# plugin 문서나 여러 블로그에는 publish directory�
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
+
+[build.environment]
+DATABASE_URL = "./prisma/dev.db"
